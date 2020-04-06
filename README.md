@@ -3,10 +3,18 @@
 This project runs a website on YOUR server that lets you play videos
 stored ON the server and YouTube, Vimeo, etc. videos, synced to everyone else.
 
+There is even a QUEUE.
+
 ![UI](readme/ui.png)
 
 It USED to be able to display motion graphics on-demand with your own text, 
 but this function is now broken for the time being.
+
+However, if you can scrounge up two fonts 
+(Rockwell aka. ROCK.TTF and DIN aka. DINE1.TTF), you DO have some dynamic graphics
+support as "overlay text," seen below in the top left:
+
+![Overlay example](readme/overlay.png)
 
 #### ⚠ BIG Warnings ⚠
 
