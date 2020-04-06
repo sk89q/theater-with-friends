@@ -1,0 +1,25 @@
+version: "3.4"
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    ports:
+      - "1935:1935"
+      - "8080:80"
+  webui:
+    build:
+      context: ./webui
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+  mediajv:
+    build:
+      context: ./mediajv
+      dockerfile: ./Dockerfile
+    ports:
+      - "5455:5455"
+    volumes:
+      - "./content:/content"
+      - "./fonts:/app/fonts"
+      - "./source:/app/source"

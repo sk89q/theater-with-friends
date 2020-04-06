@@ -1,0 +1,26 @@
+{
+    "control-panel": {
+        "api-server": "http://mediajv:5455",
+        "accounts": {
+            "admin": "admin"
+        }
+    },
+    "relay-id": "default_relay",
+    "active-stream": {
+        "id": "default",
+        "streams": [
+            {
+                "name": "Medium Quality",
+                "bandwidth": "75 kilobytes/s",
+                "id": "medium",
+                "url": "rtmp://example.com:1935/theater",
+                "file": "live?id=%id%"
+            }
+        ]
+    },
+    "harbor": {
+        "keys": [
+            "defaultharborkey"
+        ]
+    }
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Theater Control</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/css/manage.css" rel="stylesheet" media="screen">
+    <script>
+    var apiKey = "{{ csrfKey }}";
+    </script>
+  </head>
+  <body>
+    <div id="working">Hold on, it's working!</div>
+    <div id="queue">
+      <div class="well well-small loading">
+        <strong>Loading queue...</strong> Please wait.
+      </div>
+      <div class="alert alert-error no-results">
+        The queue is empty and the stream is currently stopped.
+      </div>
+      <ul></ul>
+    </div>
+    <div class="tabbable" id="sources">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#local" data-toggle="tab">Local</a></li>
+        <li><a href="#web" data-toggle="tab">Search</a></li>
+        <li><a href="#harbor" data-toggle="tab">Live</a></li>
+        <li><a href="#graphics-card" data-toggle="tab">Graphics</a></li>
+        <li class="dropdown" id="sources-more">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">More <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li rel="tooltip" title="Enqueue a URL directly" data-placement="left"><a id="enqueue-direct-url" href="#">Enqueue...</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane has-toolbar active" id="local">
+          <div class="tab-content-toolbar">
+            <div class="btn-group">
+              <a href="#" class="btn up-dir disabled" rel="tooltip" title="Up one directory"><i class="icon-arrow-up"></i></a>
+              <a href="#" class="btn refresh disabled" rel="tooltip" title="Refresh"><i class="icon-refresh"></i></a>
+            </div>
+            <ul class="breadcrumb">
+              <li class="active">Home</li>
+            </ul>
+          </div>
+          <div class="well well-small loading">
+            <strong>Loading files...</strong> Please wait.
+          </div>
+          <div class="alert alert-info no-results">
+            There are no files or folders inside here.
+          </div>
+          <ul class="file-list">
+          </ul>
+        </div>
+        <div class="tab-pane has-toolbar" id="web">
+          <div class="tab-content-toolbar">
+            <div class="btn-group">
+              <a href="#" class="btn refresh disabled" rel="tooltip" title="Refresh results"><i class="icon-refresh"></i></a>
+            </div>
+            <form method="post" action="?">
+              <div class="input-append input-prepend">
+                <span class="add-on">Search Videos:</span>
+                <input id="query" name="query" type="search" rel="tooltip" title="Search the Internet for playable videos" data-trigger="focus">
+                <input type="submit" class="btn" value="Search">
+              </div>
+            </form>
+          </div>
+          <p class="alert alert-info intro">
+            Find media content to play using the search box above.
+          </p>
+          <div class="well well-small no-results">
+            Sorry, no results were found.
+          </div>
+          <ul class="search-results">
+          </ul>
+        </div>
+        <div class="tab-pane" id="harbor">
+          <div class="alert alert-info">
+            <p>
+              Use the following details in order to stream into the server (pick an ID
+              for yourself), and then queue your stream below.
+            </p>
+            <ul>
+              <li>FMS URL: rtmp://78.47.50.148:80/harbor</li>
+              <li>Stream name: <code>your-id-here</code>?key=7fZRZAF95tUrX2v0vnvB</li>
+            </ul>
+            <p>
+              Ideally, encode with the following configuration:
+            </p>
+            <ul>
+              <li>Bit rate: 600 kbits/s or better</li>
+              <li>Frame rate: 25 or 30</li>
+              <li>Resolution: 720 by 480 (or better)</li>
+            </ul>
+          </div>
+          <form method="post" action="?" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label" for="harbor-id">Stream ID</label>
+              <div class="controls">
+                <input type="text" id="harbor-id" rel="tooltip" title="The ID that you selected" data-trigger="focus" placeholder="your-id-here">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Enqueue</button>
+            </div>
+          </form>
+        </div>
+        <div class="tab-pane" id="graphics-card">
+          <div class="alert alert-info">
+            Display a graphics card to present information. When selecting a style and
+            music choice, the shortest clip will determine the length of the graphics card.
+          </div>
+          <form method="post" action="?" class="form-horizontal">
+            <div class="control-group">
+              <label class="control-label" for="graphics-title">Title</label>
+              <div class="controls">
+                <input type="text" id="graphics-title" rel="tooltip" title="Full UPPERCASE recommended" data-trigger="focus" placeholder="i.e. UP NEXT">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="graphics-content">Content</label>
+              <div class="controls">
+                <textarea rows="5" cols="40" name="graphics-content" id="graphics-content"
+                  rel="tooltip" title="Up to 7 lines" data-trigger="focus" data-placement="left"></textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="graphics-rating">Rating</label>
+              <div class="controls">
+                <input type="text" id="graphics-rating" rel="tooltip" title="G, PG, etc." data-trigger="focus" placeholder="i.e. G">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="graphics-rating-content">Rating Content</label>
+              <div class="controls">
+                <textarea rows="5" cols="40" name="graphics-rating-content" id="graphics-rating-content"
+                  rel="tooltip" title="Up to 7 lines" data-trigger="focus" data-placement="left"></textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="graphics-style">Style</label>
+              <div class="controls">
+                <select name="graphics-style" id="graphics-style">
+                  <option value="triangles">Triangles (1 min)</option>
+                  <option value="bokeh">Bokeh (30 sec)</option>
+                  <option value="clouds">Clouds (2 min)</option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="graphics-music">Music</label>
+              <div class="controls">
+                <select name="graphics-music" id="graphics-music">
+                  <option value="">(None)</option>
+                  <option value="magical.mp4">Magical (30 sec)</option>
+                  <option value="minor_suspense.mp4">Minor Suspense (30 sec)</option>
+                  <option value="racketeers.mp4">Racketeers (30 sec)</option>
+                  <option value="heart_of_courage.mp4">Heart of Courage (2 min)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Enqueue</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="error-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <form class="form-horizontal" action="?" method="post">
+        <div class="modal-body">
+          <p class="alert alert-error">
+            Some error occurred!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" value="Close">
+        </div>
+      </form>
+    </div>
+    <div id="enqueue-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <form class="form-horizontal" action="?" method="post">
+        <div class="modal-body">
+          <div class="control-group">
+            <label class="control-label" for="uri">URI</label>
+            <div class="controls">
+              <input type="text" id="uri" name="uri" rel="tooltip" title="YouTube/Vimeo URLs supported" placeholder="path://to/resource" data-trigger="focus">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="time">Start Time</label>
+            <div class="controls">
+              <input type="text" id="time" name="time" rel="tooltip" placeholder="00:10:00" data-trigger="focus">
+            </div>
+          </div>
+          <fieldset>
+            <legend>Dynamic Audio Compression</legend>
+            <div class="control-group">
+              <label class="control-label" for="gain">Gain (dB)</label>
+              <div class="controls">
+                <input type="text" id="gain" placeholder="0">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="volume">Base Volume (dB)</label>
+              <div class="controls">
+                <input type="text" id="volume" placeholder="i.e. -90 for quiet videos">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Top-left Overlay</legend>
+            <div class="control-group">
+              <label class="control-label" for="text1">Small Text</label>
+              <div class="controls">
+                <input type="text" id="text1" placeholder="i.e. COMING UP NEXT">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="text2">Large Text</label>
+              <div class="controls">
+                <input type="text" id="text2">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn" data-dismiss="modal" aria-hidden="true" value="Close">
+          <input type="submit" class="btn btn-primary" value="Enqueue">
+        </div>
+      </form>
+    </div>
+    <script id="tpl-queue-entry" type="text/html">
+      <li>
+        <div class="btn-toolbar">
+          <a class="skip-button btn btn-small" rel="tooltip" title="Skip"><i class="icon-remove"></i></a>
+        </div>
+        <div class="qid muted">QID: <%- result.qid %></div>
+        <h3><%- result.name %></h3>
+        <ul class="filters-list">
+          <% _.each(result.filters, function(filter) { %>
+            <li><%- filter %></li>
+          <% }); %>
+        </ul>
+      </li>
+    </script>
+    <script id="tpl-search-entry" type="text/html">
+      <li>
+        <div class="btn-toolbar">
+          <div class="btn-group">
+            <a class="btn btn-small enqueue"><i class="icon-plus" rel="tooltip" title="Add to queue"></i></a>
+            <a class="btn btn-small open"><i class="icon-share" rel="tooltip" title="Open new page to video"></i></a>
+          </div>
+        </div>
+        <img src="<%- result.tn %>">
+        <div class="details muted"><%- result.url %> (<% print(formatTime(result.duration)) %>)</div>
+        <h3><%- result.title %></h3>
+        <div class="description"><%- result.desc %></div>
+      </li>
+    </script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/underscore.js"></script>
+    <script src="/js/manage.js?1"></script>
+    <script src="/js/manage-init.js"></script>
+  </body>
+</html>

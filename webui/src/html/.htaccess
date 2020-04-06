@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^manage$ /manage/ [R,L]
+RewriteRule ^manage/$ manage.php [QSA,L]
+RewriteRule ^manage/api$ manage-api.php [QSA,L]
+RewriteRule ^rtmp-api/play$ rtmp-api.php?type=play [QSA,L]
+RewriteRule ^rtmp-api/publish$ rtmp-api.php?type=publish [QSA,L]
+RewriteRule ^([^/]+)/$ index.php?id=$1 [QSA,L]

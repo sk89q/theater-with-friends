@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Theater</title>
+    <link href="/css/bootstrap-android.css" rel="stylesheet" media="screen">
+    <link href="/css/theater.css?" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div id="underlay"></div>
+    <div id="splash">
+      <noscript>
+        <div class="alert">
+          <strong>Unsupported!</strong> Sorry, please enable JavaScript in your browser.
+        </div>
+      </noscript>
+      <div id="error">
+        <div class="alert">
+          <strong>Unsupported!</strong> <span></span>
+        </div>
+      </div>
+      <div id="streams">
+        <p id="logo">
+          <img src="/images/splash.png" alt="Theater">
+        </p>
+        <p>Please select a quality,</p>
+        {% for stream in streams %}
+        <button class="btn btn-primary btn-large" data-stream-url="{{ stream.url }}/{{ stream.file }}" data-content="Required download speed: {{ stream.bandwidth }} or better">{{ stream.name }}</button>
+        {% endfor %}
+      </div>
+    </div>
+    <div id="theater">
+      <div id="player-container"><div id="player"></div></div>
+      <div id="chat-container">
+        <script id="cid0020000078046724605" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 180px;height: 100%;">{"handle":"skcrafttheater","arch":"js","styles":{"a":"000000","b":100,"c":"999999","d":"848484","e":"000000","g":"999999","h":"333333","j":"ffffff","k":"333333","l":"000000","m":"000000","n":"cccccc","p":"10.26","q":"000000","r":100,"t":0,"ab":false,"usricon":0.60,"sbc":"bbbbbb","surl":0}}</script>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/swfobject.js"></script>
+    <script src="/js/jwplayer.js" ></script>
+    <script src="/js/theater.js?"></script>
+  </body>
+</html>

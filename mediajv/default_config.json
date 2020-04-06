@@ -1,0 +1,19 @@
+{
+  "logging": {
+    "format": "[%(levelname)s] %(name)s: %(message)s"
+  },
+  "media": {
+    "dir": "/content",
+    "extensions": [".mp4", ".mkv", ".avi", ".ogm", ".ogg", ".flv", ".wmv", ".mpg", ".mov", ".xvid"]
+  },
+  "api": {
+    "host": "0.0.0.0",
+    "port": 5455,
+    "accounts": {
+      "api": "api"
+    }
+  },
+  "harbor": {
+    "base-app-path": "rtmp://example.com:1935/harbor/"
+  }
+}
