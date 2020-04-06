@@ -20,7 +20,7 @@ Please bear with it.
 
 ## Requirements
 
-**BIG REQUIREMENT:** You own a Linux server and know how to configure one.,
+**BIG REQUIREMENT:** You own a Linux server and know how to configure one.
 
 Technical knowledge required: Pasting commands
 
@@ -42,10 +42,12 @@ Now, go to `http://YOUR_IP/manage/` with username `admin` and password `admin`. 
 * The graphics tab DOES NOT WORK anymore.
 * The live tab DOES NOT WORK anymore.
 
-To video your video, go to `http://YOUR_IP:8080/` (don't forget the :8080)
+To watch your video, go to `http://YOUR_IP:8080/` (don't forget the :8080)
 
 ### Caveats
 
 * Once you start a video, it will take a few seconds before it will actually start playing. 
 Verify on `http://YOUR_IP:8080/stats.xml` that there is a "theater" stream.
-* Try to always have a video queued, but your friends can always refresh the page. 
+* Try to always have a video queued, but your friends can always refresh the page.
+
+ 
