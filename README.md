@@ -3,7 +3,8 @@
 This project runs a website on YOUR server that lets you play videos
 stored ON the server and YouTube, Vimeo, etc. videos, synced to everyone else.
 
-There is even a QUEUE.
+It is a full-fledged streaming platform with queue and re-encoding and **needs a dedicated server
+with a good enough CPU**.
 
 ![UI](readme/ui.png)
 
