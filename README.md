@@ -1,7 +1,7 @@
 # TheaterWithFriends
 
 This project runs a website on YOUR server that lets you play videos
-stored ON the server and YouTube, Vimeo,, etc. videos, synced to everyone else.
+stored ON the server and YouTube, Vimeo, etc. videos, synced to everyone else.
 
 ![UI](readme/ui.png)
 
